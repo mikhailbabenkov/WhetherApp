@@ -3,12 +3,15 @@ package com.mikhailbabenkov.wheather.di
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import com.mikhailbabenkov.wheather.BuildConfig
+import com.mikhailbabenkov.wheather.data.api.OpenWeatherService
+import com.mikhailbabenkov.wheather.data.api.StorageService
+import com.mikhailbabenkov.wheather.data.datasource.WeatherLocalDataSource
+import com.mikhailbabenkov.wheather.data.datasource.WeatherRemoteDataSource
 import com.mikhailbabenkov.wheather.domain.utils.ApiConfig
 import com.mikhailbabenkov.wheather.domain.utils.DateDeserializer
 import com.mikhailbabenkov.wheather.domain.utils.PrivateRequestInterceptor
 import dagger.Module
 import dagger.Provides
-import okhttp3.Authenticator
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,6 +46,32 @@ class AppModule {
         return PrivateRequestInterceptor()
     }
 
+    @Singleton
+    @Provides
+    fun provideWeatherLocalDataSource(service: StorageService): WeatherLocalDataSource {
+        return WeatherLocalDataSource(service)
+    }
+
+    @Singleton
+    @Provides
+    fun provideWeatherRemoteDataSource(service: OpenWeatherService): WeatherRemoteDataSource {
+        return WeatherRemoteDataSource(service)
+    }
+
+    @Singleton
+    @Provides
+    fun provideOpenWeatherService(
+        apiConfig: ApiConfig,
+        gsonConverterFactory: GsonConverterFactory,
+        okHttpClient: OkHttpClient
+    ): OpenWeatherService {
+        return Retrofit.Builder()
+            .baseUrl(apiConfig.apiUrl)
+            .addConverterFactory(gsonConverterFactory)
+            .client(okHttpClient)
+            .build()
+            .create(OpenWeatherService::class.java)
+    }
 
     @Provides
     @Singleton
@@ -55,7 +84,7 @@ class AppModule {
             .connectTimeout(apiConfig.connectionTimeout, TimeUnit.SECONDS)
             .addNetworkInterceptor(interceptor).also {
                 if (BuildConfig.DEBUG)
-                    it.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    it.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY})
             }
             .build()
     }

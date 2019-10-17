@@ -2,6 +2,8 @@ package com.mikhailbabenkov.wheather.di
 
 import android.app.Application
 import android.content.Context
+import com.mikhailbabenkov.wheather.data.api.StorageService
+import com.mikhailbabenkov.wheather.data.api.StorageServiceImpl
 import com.mikhailbabenkov.wheather.domain.utils.ApiConfig
 import com.mikhailbabenkov.wheather.domain.utils.ApiConfigImpl
 import com.mikhailbabenkov.wheather.domain.utils.CoroutinesDispatcherProvider
@@ -22,6 +24,12 @@ class PlatformSpecificModule {
     @Provides
     fun provideApiConfig(): ApiConfig {
         return ApiConfigImpl()
+    }
+
+    @Singleton
+    @Provides
+    fun provideStorageService(context: Context): StorageService {
+        return StorageServiceImpl(context)
     }
 
     @Provides
