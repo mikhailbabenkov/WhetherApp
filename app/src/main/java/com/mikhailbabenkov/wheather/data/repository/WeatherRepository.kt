@@ -29,7 +29,7 @@ class WeatherRepository(
         return result
     }
 
-    suspend fun getForecast(cityId: String, checkCache: Boolean): Any {
+    suspend fun getForecast(cityId: Int, checkCache: Boolean): Result<WeatherForecastDO> {
         return if(checkCache) {
             localDataSource.getForecast(cityId)?.let {
                 Result.Success(it)
@@ -39,7 +39,7 @@ class WeatherRepository(
         }
     }
 
-    private suspend fun getForecast(cityId: String): Result<WeatherForecastDO> {
+    private suspend fun getForecast(cityId: Int): Result<WeatherForecastDO> {
         val result =  remoteDataSource.getForecast(cityId)
         if(result is Result.Success) {
             localDataSource.saveForecast(cityId, result.data)

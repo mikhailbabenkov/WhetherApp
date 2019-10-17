@@ -11,11 +11,11 @@ class WeatherLocalDataSource(private val service: StorageService) {
         return service.read(CITIES_KEY_PREFIX  + query)
     }
 
-    suspend fun getForecast(cityId: String): WeatherForecastDO? {
+    suspend fun getForecast(cityId: Int): WeatherForecastDO? {
        return service.read(FORECAST_KEY_PREFIX + cityId)
     }
 
-    suspend fun saveForecast(cityId: String, forecast: WeatherForecastDO) {
+    suspend fun saveForecast(cityId: Int, forecast: WeatherForecastDO) {
         return service.write(FORECAST_KEY_PREFIX + cityId, forecast)
     }
 
