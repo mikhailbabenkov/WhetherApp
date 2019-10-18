@@ -7,7 +7,7 @@ data class ForecastDO(
     val currentTemp: Float,
     val maxTemp: Float,
     val minTempt: Float,
-    val pressure: Int,
+    val pressure: Float,
     val humidity: Int,
     val iconsRefs: List<String>,
     val cloudiness: Int,

@@ -5,5 +5,5 @@ data class WeatherForecastDO(
     val latitude: Double,
     val longitude: Double,
     val country: String,
-    val forecasts: List<ForecastDO>
+    val forecasts: Map<String, List<ForecastDO>>
 )

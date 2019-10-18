@@ -6,5 +6,5 @@ class ApiConfigImpl: ApiConfig {
     override val readWriteTimeout: Long
         get() = 10L
     override val apiUrl: String
-        get() = ""
+        get() = "http://api.openweathermap.org/data/2.5/"
 }

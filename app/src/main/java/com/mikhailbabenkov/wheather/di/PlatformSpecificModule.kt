@@ -1,6 +1,5 @@
 package com.mikhailbabenkov.wheather.di
 
-import android.app.Application
 import android.content.Context
 import com.mikhailbabenkov.wheather.data.api.StorageService
 import com.mikhailbabenkov.wheather.data.api.StorageServiceImpl
@@ -14,11 +13,6 @@ import javax.inject.Singleton
 
 @Module(includes = [AppModule::class, ViewModelModule::class, UseCaseModule::class])
 class PlatformSpecificModule {
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context {
-        return application.applicationContext
-    }
 
     @Singleton
     @Provides

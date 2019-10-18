@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.mikhailbabenkov.wheather.ui.main.MainFragment">
+        <action
+            android:id="@+id/selectCity"
+            app:destination="@id/selectCityFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/selectCityFragment"
+        android:name="com.mikhailbabenkov.wheather.ui.selectcity.SelectCityFragment">
+    </fragment>
+</navigation>

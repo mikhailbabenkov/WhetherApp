@@ -2,6 +2,7 @@ package com.mikhailbabenkov.wheather.data.api.model
 
 import com.google.gson.annotations.SerializedName
 import com.mikhailbabenkov.wheather.data.datasource.model.WeatherForecastDO
+import com.mikhailbabenkov.wheather.domain.utils.DateUtils
 
 data class ForecastResponse (
     @SerializedName("list")
@@ -15,7 +16,9 @@ data class ForecastResponse (
             latitude = forecast.city.coordinates.latitude,
             longitude = forecast.city.coordinates.longitude,
             country = forecast.city.country,
-            forecasts = forecast.data.map { Forecast.toDO(it) }
+            forecasts = forecast.data.map { Forecast.toDO(it) }.groupBy {
+                DateUtils.formatDateOnly(it.date)
+            }
         )
     }
 }

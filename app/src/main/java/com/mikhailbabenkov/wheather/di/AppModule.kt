@@ -7,6 +7,7 @@ import com.mikhailbabenkov.wheather.data.api.OpenWeatherService
 import com.mikhailbabenkov.wheather.data.api.StorageService
 import com.mikhailbabenkov.wheather.data.datasource.WeatherLocalDataSource
 import com.mikhailbabenkov.wheather.data.datasource.WeatherRemoteDataSource
+import com.mikhailbabenkov.wheather.data.repository.WeatherRepository
 import com.mikhailbabenkov.wheather.domain.utils.ApiConfig
 import com.mikhailbabenkov.wheather.domain.utils.DateDeserializer
 import com.mikhailbabenkov.wheather.domain.utils.PrivateRequestInterceptor
@@ -60,6 +61,15 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideWeatherRepository(
+        localDataSource: WeatherLocalDataSource,
+        remoteDataSource: WeatherRemoteDataSource
+    ): WeatherRepository {
+        return WeatherRepository(remoteDataSource, localDataSource)
+    }
+
+    @Singleton
+    @Provides
     fun provideOpenWeatherService(
         apiConfig: ApiConfig,
         gsonConverterFactory: GsonConverterFactory,
@@ -84,7 +94,9 @@ class AppModule {
             .connectTimeout(apiConfig.connectionTimeout, TimeUnit.SECONDS)
             .addNetworkInterceptor(interceptor).also {
                 if (BuildConfig.DEBUG)
-                    it.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY})
+                    it.addInterceptor(HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    })
             }
             .build()
     }
