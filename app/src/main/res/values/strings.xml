@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Wheather</string>
+    <string name="lat_long">Lat: %1$s Long: %2$s</string>
+    <string name="current_temp">Avr: %s</string>
+    <string name="min_temp">Min: %s</string>
+    <string name="max_temp">Max: %s</string>
+    <string name="time">At %s</string>
+    <string name="wind_speed">Wind speed: %s m/s</string>
+    <string name="wind_direction">Wind direction: %s</string>
 </resources>
