@@ -13,10 +13,10 @@ App is using MVVM pattern. For displaying data I use EpoxyLibrary with Databindi
 
 Some limitations:
 
--App is not handling nicely all potential error scenarious. 
--My desing is very plain. I really mean it )))).
--I havent checked all versions on Android and all phone sizes yet. Sorry if you manage to crash it . We can submit an issue and i ll resolve it as soon as possible :)
--Glide is having basic setup only.
+-App is not handling nicely all potential error scenarious.  
+-My desing is very plain. I really mean it )))).  
+-I havent checked all versions on Android and all phone sizes yet. Sorry if you manage to crash it . We can submit an issue and i ll resolve it as soon as possible :) .  
+-Glide is having basic setup only.  
 
 ---------- 
 
