@@ -6,6 +6,6 @@ data class CityDO(
     val latitude: Double,
     val longitude: Double,
     val timestamp: Long,
-    val iconRef: String?,
+    val iconRef: String,
     val currentTemp: Float
 )

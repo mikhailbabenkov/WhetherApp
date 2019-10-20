@@ -24,7 +24,7 @@ class WeatherRepository(
     private suspend fun getCities(query: String): Result<List<CityDO>> {
         val result =  remoteDataSource.getCities(query)
         if(result is Result.Success) {
-            localDataSource.saveCities(result.data)
+            localDataSource.saveCities(query, result.data)
         }
         return result
     }
