@@ -1,0 +1,115 @@
+{
+  "message": "like",
+  "cod": "200",
+  "count": 3,
+  "list": [
+    {
+      "id": 616187,
+      "name": "Talin",
+      "coord": {
+        "lat": 40.3836,
+        "lon": 43.8736
+      },
+      "main": {
+        "temp": 280.59,
+        "pressure": 1021,
+        "humidity": 50,
+        "temp_min": 275.15,
+        "temp_max": 287.15
+      },
+      "dt": 1571540962,
+      "wind": {
+        "speed": 2.1,
+        "deg": 260
+      },
+      "sys": {
+        "country": "AM"
+      },
+      "rain": null,
+      "snow": null,
+      "clouds": {
+        "all": 75
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "broken clouds",
+          "icon": "04n"
+        }
+      ]
+    },
+    {
+      "id": 121801,
+      "name": "Talin",
+      "coord": {
+        "lat": 37.5643,
+        "lon": 44.8553
+      },
+      "main": {
+        "temp": 285.15,
+        "pressure": 1020,
+        "humidity": 62,
+        "temp_min": 285.15,
+        "temp_max": 285.15
+      },
+      "dt": 1571540945,
+      "wind": {
+        "speed": 1,
+        "deg": 280
+      },
+      "sys": {
+        "country": "IR"
+      },
+      "rain": null,
+      "snow": null,
+      "clouds": {
+        "all": 75
+      },
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "broken clouds",
+          "icon": "04n"
+        }
+      ]
+    },
+    {
+      "id": 171830,
+      "name": "Talin",
+      "coord": {
+        "lat": 35.1482,
+        "lon": 36.0334
+      },
+      "main": {
+        "temp": 293.15,
+        "pressure": 1017,
+        "humidity": 82,
+        "temp_min": 293.15,
+        "temp_max": 293.15
+      },
+      "dt": 1571540946,
+      "wind": {
+        "speed": 3.1,
+        "deg": 70
+      },
+      "sys": {
+        "country": "SY"
+      },
+      "rain": null,
+      "snow": null,
+      "clouds": {
+        "all": 40
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds",
+          "icon": "03n"
+        }
+      ]
+    }
+  ]
+}
