@@ -13,11 +13,11 @@ import com.mikhailbabenkov.wheather.ui.main.MainViewModel
 import java.lang.Exception
 
 class ForecastController(
-    liveModel: LiveData<MainViewModel.ForecastViewModel>,
+    liveModel: LiveData<MainViewModel.ForecastUiModel>,
     lifecycleOwner: LifecycleOwner
-) : TypedEpoxyController<MainViewModel.ForecastViewModel>() {
+) : TypedEpoxyController<MainViewModel.ForecastUiModel>() {
 
-    private val modelObserver = Observer<MainViewModel.ForecastViewModel> {
+    private val modelObserver = Observer<MainViewModel.ForecastUiModel> {
         setData(it)
     }
 
@@ -25,7 +25,7 @@ class ForecastController(
         liveModel.observe(lifecycleOwner, modelObserver)
     }
 
-    override fun buildModels(data: MainViewModel.ForecastViewModel) {
+    override fun buildModels(data: MainViewModel.ForecastUiModel) {
         when {
             data.isLoading -> bindLoading()
             data.data != null -> bindForecast(data.data)

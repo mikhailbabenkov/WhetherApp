@@ -19,7 +19,7 @@ data class City(
             timestamp = city.timestamp,
             longitude = city.coordinates.longitude,
             latitude = city.coordinates.latitude,
-            iconRef = city.weather.firstOrNull()?.iconRef,
+            iconRef = city.weather.first().iconRef,
             name = city.name
         )
     }

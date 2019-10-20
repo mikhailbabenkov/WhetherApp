@@ -7,4 +7,9 @@
     <string name="time">At %s</string>
     <string name="wind_speed">Wind speed: %s m/s</string>
     <string name="wind_direction">Wind direction: %s</string>
+    <string name="select_city_lbl">Select city</string>
+    <string name="search_lbl">Search</string>
+    <string name="search_hint_lbl">Search for cities…</string>
+    <string name="my_forecast_lbl">My forecast</string>
+    <string name="no_results_msg">No results found</string>
 </resources>

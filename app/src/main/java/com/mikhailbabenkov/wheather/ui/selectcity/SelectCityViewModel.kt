@@ -1,32 +1,42 @@
-package com.mikhailbabenkov.wheather.ui.main
+package com.mikhailbabenkov.wheather.ui.selectcity
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mikhailbabenkov.wheather.data.datasource.model.WeatherForecastDO
-import com.mikhailbabenkov.wheather.domain.usecase.GetForecastUseCase
+import com.mikhailbabenkov.wheather.data.datasource.model.CityDO
+import com.mikhailbabenkov.wheather.domain.usecase.GetCitiesUseCase
+import com.mikhailbabenkov.wheather.domain.usecase.SetCurrentCityUseCase
 import com.mikhailbabenkov.wheather.domain.utils.CoroutinesDispatcherProvider
+import com.mikhailbabenkov.wheather.domain.utils.Event
+import com.mikhailbabenkov.wheather.domain.utils.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.mikhailbabenkov.wheather.domain.utils.Result
-import java.lang.Exception
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
-    private val getForecast: GetForecastUseCase,
+class SelectCityViewModel @Inject constructor(
+    private val getCities: GetCitiesUseCase,
+    private val selectCity: SetCurrentCityUseCase,
     private val dispatcherProvider: CoroutinesDispatcherProvider
 ) : ViewModel() {
 
-    val uiModel: LiveData<ForecastUiModel>
+    val uiModel: LiveData<CitiesUiModel>
         get() = _uiModel
-    private val _uiModel = MutableLiveData<ForecastUiModel>()
+    private val _uiModel = MutableLiveData<CitiesUiModel>()
+
+    val selectCityResult: LiveData<Event<Unit>>
+        get() = _selectCityResult
+    private val _selectCityResult = MutableLiveData<Event<Unit>>()
 
     private val parentJob = Job()
     private val scope = CoroutineScope(dispatcherProvider.main + parentJob)
+    private var query: String = ""
 
-    fun initLoadData() = loadData(true, false)
+    fun searchForCity(query: String) {
+        this.query = query
+        loadData(true, false)
+    }
 
     fun pullToRefresh() = loadData(false, true)
 
@@ -35,12 +45,12 @@ class MainViewModel @Inject constructor(
             withContext(dispatcherProvider.main) {
                 emitUiState(!isPullToRefresh, isPullToRefresh, _uiModel.value?.data)
             }
-            val result = getForecast.invoke(fromCache)
+            val result = getCities.invoke(query, fromCache)
             withContext(dispatcherProvider.main) { handleResult(result) }
         }
     }
 
-    private fun handleResult(result: Result<WeatherForecastDO>) {
+    private fun handleResult(result: Result<List<CityDO>>) {
         when (result) {
             is Result.Success -> emitUiState(data = result.data)
             is Result.Error -> emitUiState(error = result.exception)
@@ -50,10 +60,10 @@ class MainViewModel @Inject constructor(
     private fun emitUiState(
         isLoading: Boolean = false,
         isRefreshing: Boolean = false,
-        data: WeatherForecastDO? = null,
+        data: List<CityDO>? = null,
         error: Exception? = null
     ) {
-        _uiModel.value = ForecastUiModel(isLoading, isRefreshing, data, error)
+        _uiModel.value = CitiesUiModel(isLoading, isRefreshing, data, error)
     }
 
     override fun onCleared() {
@@ -61,10 +71,19 @@ class MainViewModel @Inject constructor(
         super.onCleared()
     }
 
-    data class ForecastUiModel(
+    fun setCitySelected(cityId: Int) {
+        scope.launch(dispatcherProvider.computation) {
+            selectCity.invoke(cityId)
+            withContext(dispatcherProvider.main) {
+                _selectCityResult.value = Event(Unit)
+            }
+        }
+    }
+
+    data class CitiesUiModel(
         val isLoading: Boolean,
         val isRefreshing: Boolean,
-        val data: WeatherForecastDO?,
+        val data: List<CityDO>?,
         val error: Exception?
     )
 }

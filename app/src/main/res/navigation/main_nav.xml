@@ -4,13 +4,15 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.mikhailbabenkov.wheather.ui.main.MainFragment">
+        android:name="com.mikhailbabenkov.wheather.ui.main.MainFragment"
+        android:label="@string/my_forecast_lbl">
         <action
             android:id="@+id/selectCity"
             app:destination="@id/selectCityFragment"/>
     </fragment>
     <fragment
         android:id="@+id/selectCityFragment"
-        android:name="com.mikhailbabenkov.wheather.ui.selectcity.SelectCityFragment">
+        android:name="com.mikhailbabenkov.wheather.ui.selectcity.SelectCityFragment"
+        android:label="@string/select_city_lbl">
     </fragment>
 </navigation>
